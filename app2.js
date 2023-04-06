@@ -24,7 +24,7 @@ function addReading() {
   
   console.log("New reading:", reading);
 
-  let readings = getReadings();
+  readings = getReadings();
   readings.unshift(reading);
   localStorage.setItem("mobreadings", JSON.stringify(readings));
 
