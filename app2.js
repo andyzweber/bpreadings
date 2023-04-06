@@ -4,10 +4,13 @@ function addReading() {
   const systolicInput = document.getElementById("systolic");
   const diastolicInput = document.getElementById("diastolic");
   const heartRateInput = document.getElementById("heart-rate");
-
+console.log(heartRateInput);
   const systolicValue = parseInt(systolicInput.value);
   const diastolicValue = parseInt(diastolicInput.value);
-  const heartRateValue = heartRateInput ? parseInt(heartRateInput.value) : null;
+  const heartRateValue = parseInt(heartRateInput.value);
+  console.log("systolicValue:", systolicValue);
+  console.log("diastolicValue:", diastolicValue);
+  console.log("heartRateValue:", heartRateValue);
 
   if (isNaN(systolicValue) || isNaN(diastolicValue) || isNaN(heartRateValue)) {
     alert("Please enter valid values for all fields.");
@@ -64,3 +67,17 @@ function getCurrentTime() {
 
 displayReadings();
 
+function displayReadings() {
+    const readingsList = document.getElementById("readings");
+    readingsList.innerHTML = "";
+  
+    let readings = getReadings();
+    for (let i = 0; i < readings.length; i++) {
+      const reading = readings[i];
+      const readingHTML = `
+        <li>${reading.date} ${reading.time} - Systolic: ${reading.systolic}, Diastolic: ${reading.diastolic}, Heart Rate: ${reading.heartRate}</li>
+      `;
+      readingsList.insertAdjacentHTML("afterbegin", readingHTML);
+    }
+  }
+  
