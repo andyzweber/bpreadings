@@ -7,7 +7,7 @@ function addReading() {
 
   const systolicValue = parseInt(systolicInput.value);
   const diastolicValue = parseInt(diastolicInput.value);
-  const heartRateValue = parseInt(heartRateInput.value);
+  const heartRateValue = heartRateInput ? parseInt(heartRateInput.value) : null;
 
   if (isNaN(systolicValue) || isNaN(diastolicValue) || isNaN(heartRateValue)) {
     alert("Please enter valid values for all fields.");
