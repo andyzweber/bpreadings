@@ -11,6 +11,11 @@ function addReading() {
   const diastolicValue = Number(diastolicInput.value);
   const heartRateValue = Number(heartRateInput.value);
   
+    if (isNaN(systolicValue) || isNaN(diastolicValue) || isNaN(heartRateValue)) {
+    alert("Please enter valid values for all fields.");
+    return;
+  }
+  
   if (systolicValue && diastolicValue && heartRateValue) {
     const now = new Date();
     const dateString = now.toLocaleDateString();
