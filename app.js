@@ -71,3 +71,17 @@ function renderReadings() {
 
 // initial rendering of readings list
 renderReadings();
+
+
+//prepend
+function displayReadings() {
+  const readingsList = document.getElementById("readings");
+  readingsList.innerHTML = "";
+
+  let readings = getReadings();
+  for (let i = 0; i < readings.length; i++) {
+    const reading = readings[i];
+    const readingHtml = `<li>${reading.date} ${reading.time} - Systolic: ${reading.systolic}, Diastolic: ${reading.diastolic}, Heart Rate: ${reading.heartRate}</li>`;
+    readingsList.insertAdjacentHTML("afterbegin", readingHtml);
+  }
+}
