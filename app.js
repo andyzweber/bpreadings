@@ -11,11 +11,6 @@ function addReading() {
   const diastolicValue = Number(diastolicInput.value);
   const heartRateValue = Number(heartRateInput.value);
   
-    if (isNaN(systolicValue) || isNaN(diastolicValue) || isNaN(heartRateValue)) {
-    alert("Please enter valid values for all fields.");
-    return;
-  }
-  
   if (systolicValue && diastolicValue && heartRateValue) {
     const now = new Date();
     const dateString = now.toLocaleDateString();
@@ -40,6 +35,20 @@ function addReading() {
     renderReadings();
   }
 }
+function deleteReading(id) {
+  // Find the index of the reading to be deleted
+  const index = readings.findIndex((reading) => reading.id === id);
+  
+  // If the reading was found, remove it from the array and update local storage
+  if (index !== -1) {
+    readings.splice(index, 1);
+    localStorage.setItem('mobreadings', JSON.stringify(readings));
+    
+    // Re-render the readings list
+    renderReadings();
+  }
+}
+
 
 // function to render the readings list
 function renderReadings() {
@@ -70,23 +79,16 @@ function renderReadings() {
     li.appendChild(document.createTextNode(' HR: '));
     li.appendChild(heartRateSpan);
     
+    // Add swipe-to-delete functionality to the reading element
+    const hammer = new Hammer(li);
+    hammer.on('swipeleft', (event) => {
+      deleteReading(reading.id);
+    });
+    
     readingsList.appendChild(li);
   }
 }
 
+
 // initial rendering of readings list
 renderReadings();
-
-
-//prepend
-function displayReadings() {
-  const readingsList = document.getElementById("readings");
-  readingsList.innerHTML = "";
-
-  let readings = getReadings();
-  for (let i = 0; i < readings.length; i++) {
-    const reading = readings[i];
-    const readingHtml = `<li>${reading.date} ${reading.time} - Systolic: ${reading.systolic}, Diastolic: ${reading.diastolic}, Heart Rate: ${reading.heartRate}</li>`;
-    readingsList.insertAdjacentHTML("afterbegin", readingHtml);
-  }
-}
